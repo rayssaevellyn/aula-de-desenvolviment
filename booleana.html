@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="nome" type="text" placeholder="Digite o nome"><br>
+    <input id="idade" type="number" placeholder="Digite a idade"><br>
+    <input id="cpf" type="number" placeholder="Digite o CPF"><br>
+    <button onclick="cadastra()">cadastrar</button><br>
+    <button onclick="verifica()">verificar</button><br>
+    <button onclick="listarObjeto()">atributos do objeto</button>
+    <p id="resposta"></p>
+</body>
+</html>
+<script>
+    var pessoas = []
+    var PessoaEncontrada
+    function cadastra() {
+        if (document.getElementById("nome").value == "" || document.getElementById("idade").value == "" ||document.getElementById("cpf").value == "") {
+            alert("Você precisa preencher todos os campos corretamente!")
+        }
+        else {
+            var cpf = document.getElementById("cpf").value
+            if (verificaSeExiste(cpf) == false) {
+                criaObjeto()
+                alert("Cadastro efetuado com sucesso!")
+            }
+            else {
+                alert("Este CPF já está cadastrado!")
+            }
+        }
+    }
+    function verifica() {
+        var cpf = document.getElementById("cpf").value
+        if (verificaSeExiste(cpf) == true) {
+            if (PessoaEncontrada.idade < 18) {
+                alert("A pessoa informada é menor de idade!")
+            }
+            else {
+                alert("A pessoa informada é maior de idade!")
+            }
+        }
+        else{
+            alert("O nome informado não está cadastrado!")
+        }
+
+    }
+    function verificaSeExiste(cpf) {
+        for(pessoa of pessoas){
+            if(pessoa.cpf == cpf){
+                PessoaEncontrada = pessoa
+                return true
+            }
+        }
+        return false
+    }
+    function criaObjeto(){
+        var nomeDigitado = document.getElementById("nome").value
+        var idadeDigitada = document.getElementById("idade").value
+        var cpfDigitado = document.getElementById("cpf").value
+        var Pessoa = {
+            nome: nomeDigitado,
+            idade: idadeDigitada,
+            cpf: cpfDigitado
+        }
+        pessoas.push(Pessoa)
+
+    }
+    function listarObjeto(){
+        for(Pessoa of pessoas){
+            alert("Nome: "+Pessoa.nome + "\nIdade: "+Pessoa.idade+"\nCPF: "+Pessoa.cpf)
+        }
+    }
+</script>
